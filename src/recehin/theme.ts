@@ -6,6 +6,10 @@ export const DURATION_IN_FRAMES = 1800; // 60s
 export const WIDTH = 1080;
 export const HEIGHT = 1920;
 
+// Instagram carousel format (4:5).
+export const CAROUSEL_W = 1080;
+export const CAROUSEL_H = 1350;
+
 export const colors = {
   blue: "#1E6FF0",
   blueLight: "#4A9EFF",

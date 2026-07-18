@@ -1,0 +1,5 @@
+# Offline VO (works without internet) — used by gen_vo_espeak.py
+espeakng-loader
+
+# Natural neural VO (needs open internet) — used by generate_vo.py
+edge-tts

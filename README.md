@@ -52,18 +52,20 @@ npx remotion render RecehinPromo out/RecehinPromo.mp4
 - `public/music/bed.mp3` — **placeholder** musik bed (chord pad 120 BPM yang
   di-synth). Ganti dengan track berlisensi (lihat di bawah).
 
-## Audio: musik & voiceover (perlu diganti)
+## Audio: musik & voiceover
 
-Environment build ini tidak punya engine TTS / library musik, jadi:
-
-- **Voiceover** belum ada. Naskah lengkap + timecode ada di
-  [`VOICEOVER.md`](./VOICEOVER.md). Semua narasi juga sudah tampil sebagai
-  caption di layar, jadi video tetap komunikatif walau di-mute (cocok untuk
-  Reels/TikTok/Status). Cara memasang VO ada di file itu.
-- **Musik** saat ini memakai bed placeholder yang subtle. Ganti dengan track
-  upbeat berlisensi: taruh file di `public/music/`, lalu ubah `staticFile(...)`
-  pada `<Audio>` di `src/recehin/RecehinPromo.tsx`. Set `WITH_MUSIC = false`
-  untuk master tanpa musik.
+- **Voiceover** Bahasa Indonesia **sudah terpasang** (`public/vo/vo1…vo9.mp3`),
+  di-mix dengan musik yang otomatis di-*duck* saat VO bicara. VO ini
+  di-generate offline dengan espeak-ng (suara sintetis) karena TTS neural
+  diblokir kebijakan jaringan di environment build ini. **Untuk suara natural**,
+  jalankan `python scripts/generate_vo.py` (edge-tts) di mesin ber-internet —
+  lihat [`VOICEOVER.md`](./VOICEOVER.md). Semua narasi juga tampil sebagai
+  caption, jadi video tetap komunikatif walau di-mute.
+- **Musik** memakai bed synth (`public/music/bed.mp3`) yang di-*loudness
+  normalize*. Ganti dengan track upbeat berlisensi kapan saja: taruh di
+  `public/music/`, ubah `staticFile(...)` pada `<Audio>` di
+  `src/recehin/RecehinPromo.tsx`. `WITH_MUSIC` / `WITH_VO` bisa dimatikan,
+  dan level mix diatur di `musicVolume()`.
 
 ## Struktur kode
 

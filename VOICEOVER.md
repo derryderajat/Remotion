@@ -18,15 +18,38 @@ teks pada layar (caption) sudah tampil di video, jadi VO tinggal menegaskan.
 | 8 | 00:50–00:56 | Tagline | "Kemudahan pencatatan keuangan, sekarang ada di genggaman tanganmu." | Ada di genggamanmu, kapan aja. |
 | 9 | 00:56–00:60 | CTA / Outro | "Coba Recehin sekarang, di WhatsApp dan Web." | Coba Recehin sekarang → wa.me/628xxxxxx · recehin.my.id |
 
-## Cara memasang VO ke video
+## Status VO saat ini
 
-1. Rekam / generate tiap baris sebagai file audio (`vo-1.mp3` … `vo-9.mp3`),
-   atau satu file utuh `voiceover.mp3` sepanjang 60 detik.
-2. Taruh di `public/vo/`.
-3. Di `src/recehin/RecehinPromo.tsx`, tambahkan `<Audio>` (import dari
-   `remotion`) dengan `staticFile("vo/voiceover.mp3")`. Untuk per-klip,
-   bungkus tiap `<Audio>` dalam `<Sequence from={...}>` sesuai timecode di atas
-   (kalikan detik × 30 untuk dapat frame; boundary tiap scene ada di
-   `src/recehin/theme.ts` → `scenes`).
-4. Turunkan volume musik bed saat VO aktif — set `volume={0.5}` pada `<Audio>`
-   musik menjadi lebih rendah (mis. `0.25`), atau gunakan volume ducking.
+Video **sudah ada voiceover Bahasa Indonesia** di `public/vo/vo1…vo9.mp3`,
+sudah terpasang & di-mix di `src/recehin/RecehinPromo.tsx` (musik otomatis
+diturunkan / *ducking* saat VO bicara).
+
+VO ini di-generate **offline pakai espeak-ng** (`scripts/gen_vo_espeak.py`),
+karena environment build ini memblokir semua layanan TTS neural (HuggingFace /
+Microsoft Edge / Google — kena kebijakan jaringan). Suaranya jelas & benar
+Bahasa Indonesia, tapi terdengar sintetis/robotik.
+
+## Upgrade ke suara natural (neural) — 1 perintah
+
+Di komputer dengan internet terbuka:
+
+```bash
+pip install edge-tts
+python scripts/generate_vo.py                      # id-ID-GadisNeural (perempuan)
+# atau: python scripts/generate_vo.py --voice id-ID-ArdiNeural   (laki-laki)
+npx remotion render RecehinPromo out/RecehinPromo.mp4
+```
+
+Script menimpa `public/vo/voN.mp3` dengan suara neural yang natural (nama file
+sama, jadi **tidak perlu ubah kode**). Voice Indonesia yang bagus:
+`id-ID-GadisNeural` (F) dan `id-ID-ArdiNeural` (M).
+
+Kalau punya rekaman VO manusia sendiri, cukup timpa `public/vo/voN.mp3` dengan
+file kamu (urut sesuai tabel di atas) lalu render ulang.
+
+## Mengatur level / ducking
+
+Di `src/recehin/RecehinPromo.tsx`:
+- `musicVolume()` — `base` = volume musik saat tidak ada VO, `duck` = volume
+  musik saat VO bicara. Naikkan/turunkan sesuai selera.
+- Volume tiap `<Audio>` VO ada di array `VO`.

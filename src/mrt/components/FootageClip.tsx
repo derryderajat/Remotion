@@ -20,6 +20,7 @@ export const FootageClip: React.FC<{
   caption?: string;
   kenBurns?: number;
   origin?: string;
+  plain?: boolean; // hide all text/overlays for a clean footage-only cut
 }> = ({
   src,
   trimBefore,
@@ -28,6 +29,7 @@ export const FootageClip: React.FC<{
   caption,
   kenBurns = 0.05,
   origin = "center center",
+  plain = false,
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
@@ -50,6 +52,8 @@ export const FootageClip: React.FC<{
         />
       </AbsoluteFill>
 
+      {plain ? null : (
+        <>
       {/* top + bottom scrims for text legibility */}
       <AbsoluteFill
         style={{
@@ -110,6 +114,8 @@ export const FootageClip: React.FC<{
           </span>
         </div>
       ) : null}
+        </>
+      )}
     </AbsoluteFill>
   );
 };

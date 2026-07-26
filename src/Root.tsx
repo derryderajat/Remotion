@@ -6,6 +6,7 @@ import { Slide1Hook } from "./recehin/carousel/Slide1Hook";
 import { Slide2Value } from "./recehin/carousel/Slide2Value";
 import { Slide3Cta } from "./recehin/carousel/Slide3Cta";
 import { MrtVlog } from "./mrt/MrtVlog";
+import { MrtVlogPlain, MRT_PLAIN_DURATION } from "./mrt/MrtVlogPlain";
 import { MRT_DURATION, MRT_FPS, MRT_H, MRT_W } from "./mrt/theme";
 import "./recehin/fonts";
 
@@ -52,6 +53,16 @@ export const RemotionRoot: React.FC = () => {
         id="MrtVlog"
         component={MrtVlog}
         durationInFrames={MRT_DURATION}
+        fps={MRT_FPS}
+        width={MRT_W}
+        height={MRT_H}
+      />
+
+      {/* Plain, text-free cut — footage only, no audio */}
+      <Composition
+        id="MrtVlogPlain"
+        component={MrtVlogPlain}
+        durationInFrames={MRT_PLAIN_DURATION}
         fps={MRT_FPS}
         width={MRT_W}
         height={MRT_H}

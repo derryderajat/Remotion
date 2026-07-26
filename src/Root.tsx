@@ -5,6 +5,8 @@ import { CAROUSEL_H, CAROUSEL_W, DURATION_IN_FRAMES, FPS, HEIGHT, WIDTH } from "
 import { Slide1Hook } from "./recehin/carousel/Slide1Hook";
 import { Slide2Value } from "./recehin/carousel/Slide2Value";
 import { Slide3Cta } from "./recehin/carousel/Slide3Cta";
+import { MrtVlog } from "./mrt/MrtVlog";
+import { MRT_DURATION, MRT_FPS, MRT_H, MRT_W } from "./mrt/theme";
 import "./recehin/fonts";
 
 export const RemotionRoot: React.FC = () => {
@@ -43,6 +45,16 @@ export const RemotionRoot: React.FC = () => {
         fps={FPS}
         width={CAROUSEL_W}
         height={CAROUSEL_H}
+      />
+
+      {/* First-time-riding-MRT vlog — ~20s vertical, no audio */}
+      <Composition
+        id="MrtVlog"
+        component={MrtVlog}
+        durationInFrames={MRT_DURATION}
+        fps={MRT_FPS}
+        width={MRT_W}
+        height={MRT_H}
       />
     </>
   );

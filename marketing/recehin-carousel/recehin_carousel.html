@@ -1,0 +1,234 @@
+<meta charset="utf-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root{
+    --blue:#2f6bff;
+    --blue-dark:#1e4fd9;
+    --blue-soft:#e8f0ff;
+    --navy:#141f36;
+    --gray:#5b6577;
+    --bg1:#eaf1ff;
+    --bg2:#dbe7ff;
+    --card:#ffffff;
+    --wa-green:#25d366;
+    --font: "Plus Jakarta Sans","Inter","Segoe UI",-apple-system,Roboto,"Helvetica Neue",Arial,"Noto Color Emoji",sans-serif;
+  }
+  body{ font-family:var(--font); -webkit-font-smoothing:antialiased; }
+
+  .page{
+    position:relative;
+    width:1080px; height:1350px;
+    overflow:hidden;
+    background:
+      radial-gradient(1200px 900px at 12% -6%, #ffffff 0%, rgba(255,255,255,0) 55%),
+      radial-gradient(1300px 1100px at 108% 112%, #cfe0ff 0%, rgba(207,224,255,0) 60%),
+      linear-gradient(155deg, var(--bg1) 0%, var(--bg2) 100%);
+  }
+  .page + .page{ margin-top:60px; }
+
+  /* ---------- shared header ---------- */
+  .topbar{ position:absolute; top:80px; left:72px; right:72px;
+           display:flex; align-items:center; justify-content:space-between; }
+  .brand{ display:flex; align-items:center; gap:22px; }
+  .logo{ width:78px; height:78px; border-radius:22px; background:#fff;
+         box-shadow:0 12px 30px rgba(31,74,217,.16);
+         display:flex; align-items:center; justify-content:center; position:relative; }
+  .logo .r{ font-weight:800; font-size:50px; color:var(--blue); position:relative; letter-spacing:-2px; }
+  .logo .r::before{ content:"R"; position:absolute; left:3px; top:0; color:#9dc0ff; }
+  .logo .r span{ position:relative; }
+  .brand .name{ font-weight:800; font-size:44px; color:var(--navy); letter-spacing:-1px; }
+
+  .dots{ display:flex; align-items:center; gap:14px; }
+  .dot{ width:22px; height:22px; border-radius:50%; background:#b9c6de; }
+  .dot.active{ width:58px; border-radius:14px; background:var(--blue); }
+
+  /* ---------- page 1 ---------- */
+  .pill-float{ position:absolute; background:#fff; border-radius:40px;
+               padding:22px 34px; font-size:34px; font-weight:700; color:#3d4658;
+               box-shadow:0 18px 40px rgba(31,74,217,.14); display:flex; align-items:center; gap:16px; }
+  .p1-pill-a{ top:300px; left:72px; transform:rotate(-3deg); }
+  .p1-pill-b{ top:240px; right:80px; transform:rotate(4deg); font-style:italic; }
+
+  .headline{ position:absolute; font-weight:800; color:var(--navy);
+             letter-spacing:-2.5px; line-height:1.02; }
+  .p1-head{ top:474px; left:72px; font-size:110px; }
+  .p1-head .blue{ color:var(--blue); }
+  .sub{ position:absolute; color:var(--gray); font-weight:600; line-height:1.32; }
+  .p1-sub{ top:928px; left:72px; right:150px; font-size:40px; }
+  .p1-sub b{ color:#2b3446; font-weight:800; }
+
+  .cta{ position:absolute; background:#fff; border-radius:48px; white-space:nowrap;
+        padding:30px 56px; font-size:40px; font-weight:800; color:var(--blue);
+        box-shadow:0 22px 46px rgba(31,74,217,.20); }
+  .p1-cta{ left:50%; transform:translateX(-50%); bottom:104px; }
+
+  /* ---------- page 2 ---------- */
+  .p2-head{ top:210px; left:72px; font-size:82px; letter-spacing:-2px; }
+  .p2-head .blue{ color:var(--blue); }
+  .p2-sub{ top:420px; left:72px; right:72px; font-size:34px; }
+
+  .cards{ position:absolute; top:560px; left:72px; width:520px; display:flex; flex-direction:column; gap:28px; }
+  .card{ background:var(--card); border-radius:34px; padding:34px 34px; display:flex; gap:26px; align-items:flex-start;
+         box-shadow:0 20px 44px rgba(31,74,217,.12); }
+  .card .ic{ width:86px; height:86px; border-radius:22px; background:var(--blue-soft);
+             display:flex; align-items:center; justify-content:center; font-size:46px; flex:0 0 auto; }
+  .card h3{ font-size:38px; color:var(--navy); font-weight:800; letter-spacing:-1px; margin-bottom:8px; }
+  .card p{ font-size:30px; color:var(--gray); font-weight:600; line-height:1.28; }
+
+  /* phone mockup */
+  .phone{ position:absolute; top:508px; right:56px; width:430px; height:770px;
+          background:#0f1522; border-radius:52px; padding:14px;
+          box-shadow:0 40px 80px rgba(20,31,54,.28); }
+  .screen{ width:100%; height:100%; border-radius:40px; overflow:hidden; background:#e6ddd3;
+           display:flex; flex-direction:column; position:relative; }
+  .wa-top{ background:#f6f6f6; padding:20px 20px 16px; display:flex; align-items:center; gap:14px; border-bottom:1px solid #e4e4e4; }
+  .wa-top .av{ width:52px; height:52px; border-radius:50%; background:#dfe7f5; display:flex; align-items:center; justify-content:center; font-size:26px; }
+  .wa-top .who{ flex:1; }
+  .wa-top .who b{ display:block; font-size:26px; color:#111; font-weight:800; }
+  .wa-top .who small{ font-size:19px; color:#8a8a8a; }
+  .wa-top .ico{ font-size:26px; color:#4c8bf5; }
+  .wa-body{ flex:1; padding:20px 18px; background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,.02) 0 2px, transparent 2px),
+      radial-gradient(circle at 70% 60%, rgba(0,0,0,.02) 0 2px, transparent 2px);
+      background-color:#e6ddd3; overflow:hidden; }
+  .bubble{ background:#fff; border-radius:16px; padding:18px 18px; box-shadow:0 2px 4px rgba(0,0,0,.08); font-size:21px; color:#182231; line-height:1.4; }
+  .bubble .ok{ font-weight:800; color:#111; margin-bottom:8px; display:block; }
+  .bubble .lbl{ font-weight:800; color:#111; }
+  .bubble .row{ margin:4px 0; }
+  .bubble a{ color:#2f6bff; font-weight:700; text-decoration:underline; }
+  .bubble .trial{ margin-top:10px; }
+  .bubble .hint{ margin-top:10px; color:#4a4a4a; font-size:20px; }
+  .bubble .ts{ text-align:right; font-size:17px; color:#9aa0a6; margin-top:6px; }
+  .wa-input{ background:#f0f0f0; padding:14px 16px; display:flex; align-items:center; gap:12px; }
+  .wa-input .box{ flex:1; background:#fff; border-radius:24px; padding:14px 18px; font-size:22px; color:#9aa0a6; }
+  .wa-input .mic{ width:52px; height:52px; border-radius:50%; background:var(--wa-green); display:flex; align-items:center; justify-content:center; font-size:26px; }
+
+  .next{ position:absolute; right:48px; bottom:60px; background:#fff; border-radius:44px;
+         padding:26px 48px; font-size:38px; font-weight:800; color:var(--blue);
+         box-shadow:0 22px 46px rgba(31,74,217,.20); }
+
+  /* ---------- page 3 ---------- */
+  .p3-dots{ position:absolute; top:80px; right:72px; }
+  .p3-logo{ position:absolute; top:210px; left:50%; transform:translateX(-50%);
+            width:180px; height:180px; border-radius:44px; background:#fff;
+            box-shadow:0 26px 56px rgba(31,74,217,.20); display:flex; align-items:center; justify-content:center; }
+  .p3-logo .r{ font-weight:800; font-size:120px; color:var(--blue); position:relative; letter-spacing:-4px; }
+  .p3-logo .r::before{ content:"R"; position:absolute; left:6px; top:0; color:#9dc0ff; }
+  .p3-head{ position:absolute; top:440px; left:0; right:0; text-align:center;
+            font-weight:800; color:var(--navy); font-size:70px; letter-spacing:-2px; line-height:1.1; }
+  .p3-head .blue{ color:var(--blue); }
+
+  .rows{ position:absolute; top:640px; left:72px; right:72px; display:flex; flex-direction:column; gap:30px; }
+  .prow{ background:#fff; border-radius:38px; padding:34px 40px; display:flex; align-items:center; gap:28px;
+         box-shadow:0 18px 42px rgba(31,74,217,.12); font-size:40px; font-weight:800; color:var(--navy); letter-spacing:-.5px; }
+  .prow .ic{ font-size:44px; flex:0 0 auto; }
+  .prow .blue{ color:var(--blue); }
+
+  .botbar{ position:absolute; left:72px; right:72px; bottom:96px;
+           background:linear-gradient(90deg, var(--blue) 0%, var(--blue-dark) 100%);
+           border-radius:40px; padding:34px 44px; display:flex; align-items:center; justify-content:center; gap:22px;
+           box-shadow:0 22px 46px rgba(31,74,217,.28); }
+  .botbar .wa{ width:52px; height:52px; border-radius:50%; background:var(--wa-green); display:flex; align-items:center; justify-content:center; font-size:28px; }
+  .botbar .txt{ color:#fff; font-size:38px; font-weight:800; letter-spacing:-.5px; }
+  .botbar .dotsep{ color:#cfe0ff; font-size:34px; }
+  .botbar .globe{ font-size:34px; }
+</style>
+
+<!-- ============ PAGE 1 : HOOK ============ -->
+<div class="page" data-document-role="page" data-label="1 - Hook">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo"><div class="r"><span>R</span></div></div>
+      <div class="name">Recehin</div>
+    </div>
+    <div class="dots"><div class="dot active"></div><div class="dot"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="pill-float p1-pill-a">😵‍💫 saldo tipis</div>
+  <div class="pill-float p1-pill-b">🧾 struk numpuk</div>
+
+  <div class="headline p1-head">Gaji masuk,<br>kok cepet <span class="blue">tipis</span><br>lagi? 😮‍💨</div>
+  <div class="sub p1-sub">Bukan kamu boros — pengeluaran receh tiap hari cuma <b>nggak kecatat.</b></div>
+
+  <div class="cta p1-cta">Geser buat solusinya →</div>
+</div>
+
+<!-- ============ PAGE 2 : FEATURES ============ -->
+<div class="page" data-document-role="page" data-label="2 - Cara kerja">
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo"><div class="r"><span>R</span></div></div>
+      <div class="name">Recehin</div>
+    </div>
+    <div class="dots"><div class="dot"></div><div class="dot active"></div><div class="dot"></div></div>
+  </div>
+
+  <div class="headline p2-head">Catat duit cukup dari<br><span class="blue">WhatsApp</span></div>
+  <div class="sub p2-sub">Asisten keuangan AI — catat &amp; analisa otomatis, dari pribadi sampai usaha kecil.</div>
+
+  <div class="cards">
+    <div class="card">
+      <div class="ic">✍️</div>
+      <div><h3>Ketik kayak chat</h3><p>Tulis pengeluaran biasa, langsung kecatat rapi.</p></div>
+    </div>
+    <div class="card">
+      <div class="ic">📸</div>
+      <div><h3>Foto struk</h3><p>AI baca &amp; rinci item + nominalnya otomatis.</p></div>
+    </div>
+    <div class="card">
+      <div class="ic">🧠</div>
+      <div><h3>Insight &amp; budget</h3><p>Pola belanja, reminder, sampai forecast.</p></div>
+    </div>
+  </div>
+
+  <div class="phone">
+    <div class="screen">
+      <div class="wa-top">
+        <div class="ico">‹</div>
+        <div class="av">🤖</div>
+        <div class="who"><b>Recehin</b><small>last seen today at 3:16 PM</small></div>
+        <div class="ico">📞</div><div class="ico">⋮</div>
+      </div>
+      <div class="wa-body">
+        <div class="bubble">
+          <span class="ok">✅ 2 Transaksi Tercatat!</span>
+          <div class="lbl">Rincian:</div>
+          <div class="row">📉 Nasi padang | Rp 35.000 | makanan | <a>2026-07-18</a></div>
+          <div class="row">📉 Susu | Rp 7.000 | makanan | <a>2026-07-18</a></div>
+          <div class="trial">🎁 Sisa masa coba: <b>7 hari</b></div>
+          <div class="hint">Salah? balas <b>batal</b> (item terakhir) atau /hapus · Cek juga di <a>recehin.id</a></div>
+          <div class="ts">3:16 PM</div>
+        </div>
+      </div>
+      <div class="wa-input">
+        <div class="box">Message</div>
+        <div class="mic">🎤</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="next">Lanjut →</div>
+</div>
+
+<!-- ============ PAGE 3 : CTA ============ -->
+<div class="page" data-document-role="page" data-label="3 - CTA">
+  <div class="dots p3-dots"><div class="dot"></div><div class="dot"></div><div class="dot active"></div></div>
+
+  <div class="p3-logo"><div class="r"><span>R</span></div></div>
+
+  <div class="p3-head">Mulai atur duitmu,<br><span class="blue">receh demi receh</span> ✨</div>
+
+  <div class="rows">
+    <div class="prow"><div class="ic">💬</div><div>Komen <span class="blue">“RECEH”</span> — kukirim caranya</div></div>
+    <div class="prow"><div class="ic">🏷️</div><div>Simpan &amp; share ke bestie kamu</div></div>
+    <div class="prow"><div class="ic">🔗</div><div>Cobain langsung — link di bio</div></div>
+  </div>
+
+  <div class="botbar">
+    <div class="wa"><svg viewBox="0 0 24 24" width="30" height="30" fill="#fff"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+    <div class="txt">wa.me/6289677816465</div>
+    <div class="dotsep">·</div>
+    <div class="globe">🌐</div>
+    <div class="txt">recehin.id</div>
+  </div>
+</div>

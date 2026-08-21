@@ -5,6 +5,8 @@ import { CAROUSEL_H, CAROUSEL_W, DURATION_IN_FRAMES, FPS, HEIGHT, WIDTH } from "
 import { Slide1Hook } from "./recehin/carousel/Slide1Hook";
 import { Slide2Value } from "./recehin/carousel/Slide2Value";
 import { Slide3Cta } from "./recehin/carousel/Slide3Cta";
+import { ScanStrukAd, SCANSTRUK_DURATION, SCANSTRUK_FPS } from "./recehin/ads/ScanStrukAd";
+import { DashboardPoster } from "./recehin/ads/DashboardPoster";
 import { MrtVlog } from "./mrt/MrtVlog";
 import { MrtVlogPlain, MRT_PLAIN_DURATION } from "./mrt/MrtVlogPlain";
 import { MRT_DURATION, MRT_FPS, MRT_H, MRT_W } from "./mrt/theme";
@@ -17,6 +19,26 @@ export const RemotionRoot: React.FC = () => {
         id="RecehinPromo"
         component={RecehinPromo}
         durationInFrames={DURATION_IN_FRAMES}
+        fps={FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Short ad cut — "Scan struk" feature, 15s vertical */}
+      <Composition
+        id="ScanStrukAd"
+        component={ScanStrukAd}
+        durationInFrames={SCANSTRUK_DURATION}
+        fps={SCANSTRUK_FPS}
+        width={WIDTH}
+        height={HEIGHT}
+      />
+
+      {/* Static ad poster framing the real dashboard (render a single PNG) */}
+      <Composition
+        id="DashboardPoster"
+        component={DashboardPoster}
+        durationInFrames={1}
         fps={FPS}
         width={WIDTH}
         height={HEIGHT}

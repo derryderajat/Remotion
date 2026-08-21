@@ -1,6 +1,7 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { colors, font, gradient, radius } from "../theme";
+import { colors, font, radius } from "../theme";
+import { LogoMark } from "./Logo";
 
 // Small shared presentational bits: animated headline, caption chip, watermark,
 // WhatsApp + Web badges, and a spring helper.
@@ -91,22 +92,7 @@ export const Watermark: React.FC = () => {
         zIndex: 50,
       }}
     >
-      <div
-        style={{
-          width: 34,
-          height: 34,
-          borderRadius: 10,
-          background: gradient.brand,
-          display: "grid",
-          placeItems: "center",
-          color: "#fff",
-          fontFamily: font.family,
-          fontWeight: 800,
-          fontSize: 22,
-        }}
-      >
-        R
-      </div>
+      <LogoMark size={38} radius={11} />
       <span
         style={{
           fontFamily: font.family,

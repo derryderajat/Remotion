@@ -102,7 +102,7 @@ export const Slide3Cta: React.FC = () => {
         wa.me/6285122022325
         <span style={{ opacity: 0.6 }}>·</span>
         <WebIcon size={46} />
-        recehin.my.id
+        recehin.id
       </div>
     </CarouselShell>
   );

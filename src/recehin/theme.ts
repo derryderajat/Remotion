@@ -22,7 +22,14 @@ export const colors = {
   white: "#FFFFFF",
   whatsapp: "#25D366",
   chipBlueBg: "rgba(30,111,240,0.10)",
+  // Brand logo (2026 refresh): black "R" on a golden-yellow squircle.
+  brandYellow: "#F5B300",
+  brandYellowDeep: "#E0A200",
+  logoInk: "#171512",
 };
+
+// Canonical product URL (shown on CTAs / posters).
+export const DOMAIN = "recehin.id";
 
 export const gradient = {
   brand: `linear-gradient(135deg, ${colors.blue} 0%, ${colors.blueLight} 100%)`,

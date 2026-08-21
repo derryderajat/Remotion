@@ -1,18 +1,18 @@
 import React from "react";
 import { colors } from "../theme";
 
-// Faithful SVG recreation of the Recehin mark: a blue-gradient stylised "R"
-// built from rounded ribbon strokes, with a translucent overlap that darkens
-// where the bowl and leg cross — set in a white rounded squircle.
+// Recehin mark — 2026 refresh: a solid black stylised "R" (built from rounded
+// ribbon strokes) set on a golden-yellow rounded squircle with a soft light rim.
 
 export const LogoMark: React.FC<{
   size?: number;
   withPlate?: boolean;
   plateColor?: string;
+  markColor?: string;
   radius?: number;
-}> = ({ size = 300, withPlate = true, plateColor = "#FFFFFF", radius }) => {
+}> = ({ size = 300, withPlate = true, plateColor = colors.brandYellow, markColor = colors.logoInk, radius }) => {
   const r = radius ?? size * 0.235;
-  const id = React.useId().replace(/[:]/g, "");
+
   return (
     <svg
       width={size}
@@ -21,26 +21,24 @@ export const LogoMark: React.FC<{
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
-      <defs>
-        <linearGradient id={`g-main-${id}`} x1="150" y1="110" x2="380" y2="410" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor={colors.blueLight} />
-          <stop offset="1" stopColor={colors.blue} />
-        </linearGradient>
-        <linearGradient id={`g-deep-${id}`} x1="360" y1="120" x2="240" y2="420" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor={colors.blue} />
-          <stop offset="1" stopColor={colors.blueDeep} />
-        </linearGradient>
-        <linearGradient id={`g-foot-${id}`} x1="150" y1="300" x2="150" y2="430" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor={colors.blueLight} />
-          <stop offset="1" stopColor="#BFDBFF" />
-        </linearGradient>
-      </defs>
-
       {withPlate ? (
-        <rect x="0" y="0" width="512" height="512" rx={(r / size) * 512} fill={plateColor} />
+        <>
+          {/* soft light rim around the squircle */}
+          <rect
+            x="6"
+            y="6"
+            width="500"
+            height="500"
+            rx={(r / size) * 512}
+            fill="none"
+            stroke="rgba(255,255,255,0.85)"
+            strokeWidth="10"
+          />
+          <rect x="10" y="10" width="492" height="492" rx={(r / size) * 500} fill={plateColor} />
+        </>
       ) : null}
 
-      {/* light lower-left foot / descender accent */}
+      {/* lower-left foot / descender accent */}
       <path
         d="M150 300
            C150 286 161 275 175 275
@@ -51,8 +49,7 @@ export const LogoMark: React.FC<{
            L175 417
            C161 417 150 406 150 392
            Z"
-        fill={`url(#g-foot-${id})`}
-        opacity="0.9"
+        fill={markColor}
       />
 
       {/* the bowl of the R (top loop) */}
@@ -73,7 +70,7 @@ export const LogoMark: React.FC<{
            L175 417
            C161 417 150 406 150 392
            Z"
-        fill={`url(#g-main-${id})`}
+        fill={markColor}
       />
 
       {/* the diagonal leg of the R */}
@@ -86,14 +83,7 @@ export const LogoMark: React.FC<{
            L241 292
            C230 280 231 261 243 250
            Z"
-        fill={`url(#g-deep-${id})`}
-      />
-
-      {/* overlap shadow where leg meets bowl */}
-      <path
-        d="M214 245 L300 245 C312 245 322 251 328 260 L268 292 L214 292 Z"
-        fill={colors.blueDeep}
-        opacity="0.28"
+        fill={markColor}
       />
     </svg>
   );

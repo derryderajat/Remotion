@@ -1,6 +1,6 @@
 import React from "react";
 import { interpolate, spring, useCurrentFrame, useVideoConfig } from "remotion";
-import { colors, font, gradient } from "../theme";
+import { colors, font } from "../theme";
 import { LogoMark } from "./Logo";
 
 // Animated Recehin lockup: the mark springs/rotates in, a soft glow pulses,
@@ -49,10 +49,7 @@ export const LogoReveal: React.FC<{
             fontWeight: 800,
             fontSize: size * 0.34,
             letterSpacing: -2,
-            background: gradient.brandDeep,
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            color: "transparent",
+            color: colors.ink,
           }}
         >
           Recehin

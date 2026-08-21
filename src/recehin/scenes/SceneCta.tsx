@@ -62,7 +62,7 @@ export const SceneCta: React.FC = () => {
           }}
         >
           <span>wa.me/628xxxxxxx</span>
-          <span style={{ color: colors.blue, fontWeight: 700 }}>recehin.my.id</span>
+          <span style={{ color: colors.blue, fontWeight: 700 }}>recehin.id</span>
         </div>
       </AbsoluteFill>
     </AbsoluteFill>
